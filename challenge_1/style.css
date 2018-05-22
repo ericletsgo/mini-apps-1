@@ -35,6 +35,12 @@ table {
   margin-top: auto;
 }
 
+#winCount {
+  padding: 0px;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
 .buttonHolder {
   text-align: center;
 }

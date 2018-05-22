@@ -40,19 +40,23 @@ function reset() {
 function checkWinCondition(player) {
   for (var i = 0; i < board.length; i++) {
     if (board[i] === board[i + 3] && board[i] === board[i + 6]) {
+      winCounter(player);
       setTimeout(function() {alert(player + ' Wins!'); }, 500);
       setTimeout(function() {reset()}, 1500);
     }
     if (board[i] === board[i + 1] && board[i] === board[i + 2]) {
+      winCounter(player);
       setTimeout(function() {alert(player + ' Wins!'); }, 500);
       setTimeout(function() {reset()}, 1500);
     }
   }
   if (board[0] === board[4] && board[0] === board[8]) {
+    winCounter(player);
     setTimeout(function() {alert(player + ' Wins!'); }, 500);
     setTimeout(function() {reset()}, 1500);
   }
   if (board[2] === board[4] && board[2] === board[6]) {
+    winCounter(player);
     setTimeout(function() {alert(player + ' Wins!'); }, 500);
     setTimeout(function() {reset()}, 1500);
   }
@@ -62,6 +66,19 @@ function checkStalemate() {
   if (move === 10) {
     setTimeout(function() {alert('Stalemate!')}, 500);
     setTimeout(function() {reset()}, 1500);
+  }
+}
+
+function winCounter(player) {
+  xWinCount = document.getElementById(player).innerHTML;
+  oWinCount = document.getElementById(player).innerHTML;
+
+  if (player === 'X') {
+    xWinCount++;
+    document.getElementById(player).innerHTML = xWinCount;
+  } else {
+    oWinCount++;
+    document.getElementById(player).innerHTML = oWinCount;
   }
 }
 
