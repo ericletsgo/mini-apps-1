@@ -14,7 +14,7 @@ table {
   margin-top: 100px;
 }
 
-#board tr td {
+#board tr th {
   width: 80px;
   height: 80px;
   border: 1px solid black;
@@ -23,7 +23,7 @@ table {
   text-align: center;
 }
 
-#board tr td:hover {
+#board tr th:hover {
   background: gray;
   cursor: pointer;
 }
