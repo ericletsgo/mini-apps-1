@@ -1,55 +1,98 @@
-class App extends React.Component {
-  constructor() {
-    super();
-    this.state= {
 
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state= {
+      page: 0
     }
+    this.nextView = this.nextView.bind(this);
   }
 
   nextView() {
-
+    this.setState({page: this.state.page + 1});
   }
+
 
   render() {
-    return(
-      <div>
-        <button onClick={this.nextView}>Checkout</button>
-        <pageOne nextView={this.nextView} />
-      </div>
-    );
+    if (this.state.page === 0) {
+      return(
+        <div>
+          <button onClick={this.nextView}>Checkout</button>
+        </div>
+      );
+    }
+    if (this.state.page === 1) {
+      return(
+        <div>
+        <h1>Login Information</h1>
+        <form>
+          Name:<input type="input"/>
+          Email:<input type="input"/>
+          Password:<input type="input"/><input onClick={this.nextView} type="submit" value="Submit"/>
+        </form>
+        </div>
+      )
+    }
+    if (this.state.page === 2) {
+      return(
+        <div>
+        <h1>Shipping Information</h1>
+        <form>
+          Line 1:<input type="input"/>
+          Line 2:<input type="input"/>
+          City:<input type="input"/>State:<input type="input"/>
+          Zip Code:<input type="input"/><input onClick={this.nextView} type="submit" value="Submit"/>
+        </form>
+        </div>
+      )
+    }
+    if (this.state.page === 3) {
+      return(
+        <div>
+        <h1>Credit Card Information</h1>
+        <form>
+          Credit Card Number:<input type="input"/>
+          Exp. Date:<input type="input" maxLength="4"/>CVV:<input type="input"/>
+          Billing Zip Code: <input type="input" maxLength="5"/><input onClick={this.nextView} type="submit" value="Submit"/>
+        </form>
+        </div>
+      )
+    }
   }
 }
-
-pageOne = (props) => {
-  <div>
-    <p>Login Information</p>
-    <form>
-      <input type="input" value="Name"/>
-      <input type="input" value="Email"/>
-      <input type="input" value="Password"/><input onClick={props.nextView} type="submit" value="Submit"/>
-    </form>
-  </div>
-}
-
-pageTwo = (props) => {
-  <div>
-    <p>Shipping Information</p>
-    <form>
-      <input type="input" value="Line 1"/>
-      <input type="input" value="Line 2"/>
-      <input type="input" value="City"/><input type="input" value="State"/>
-      <input type="input" value="Zip Code"/><input onClick={props.nextView} type="submit" value="Submit"/>
-    </form>
-  </div>
-}
-
-pageThree = (props) => {
-  <div>
-    <p>Credit Card Information</p>
-    <form>
-      <input type="input" value="Credit Card Number"/>
-      <input type="input" value="Exp. Date"/><input type="input" value="Exp. Date"/><input type="input" value="CVV"/>
-      <input type="input" value="Billing Zip Code"/><input onClick={props.nextView} type="submit" value="Submit"/>
-    </form>
-  </div>
-}
+//
+// pageOne = () => {
+//   return (
+//     <div>
+//     <h1>Login Information</h1>
+//     <form>
+//       Name:<input type="input"/>
+//       Email:<input type="input"/>
+//       Password:<input type="input"/><input onClick={this.nextView} type="submit" value="Submit"/>
+//     </form>
+//     </div>
+//   )
+// }
+//
+// pageTwo = () => (
+//   <div>
+//   <h1>Shipping Information</h1>
+//   <form>
+//   Line 1:<input type="input"/>
+//   Line 2:<input type="input"/>
+//   City:<input type="input"/>State:<input type="input"/>
+//   Zip Code:<input type="input"/><input onClick={this.nextView} type="submit" value="Submit"/>
+//   </form>
+//   </div>
+// );
+//
+// pageThree = () => (
+//   <div>
+//   <h1>Credit Card Information</h1>
+//   <form>
+//   Credit Card Number:<input type="input"/>
+//   Exp. Date:<input type="input" maxlength="4"/>CVV:<input type="input"/>
+//   Billing Zip Code: <input type="input" maxlength="5"/><input onClick={this.nextView} type="submit" value="Submit"/>
+//   </form>
+//   </div>
+// );
