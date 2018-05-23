@@ -13,6 +13,10 @@ app.post('/', (req, res) => {
   for (var i = 0; i < Object.keys(data).length -1; i++) {
     container.push(Object.keys(data)[i]);
   }
+  container.push('\n');
+  for (var i = 0; i < Object.keys(data).length -1; i++) {
+    container.push(data[Object.keys(data)[i]]);
+  }
   function traverse(node) {
     container.push('\n');
     if (node.children.length !== 0) {
@@ -30,7 +34,7 @@ app.post('/', (req, res) => {
 
   var resultArray = [];
   var bucket = [];
-  
+
   for (var i = 0; i < container.length; i++) {
 
     if (container[i] === '\n') {

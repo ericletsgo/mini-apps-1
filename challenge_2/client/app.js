@@ -23,26 +23,12 @@ $(document).ready(function() {
   });
 
   var renderData = function(data) {
-    for (var i = 0; i < data.length -1; i++) {
-      $('#display').append(`<th>${data[i]}<th>`);
-
-      if (data[i] === '\n') {
-        $('#display').append('</tr><tr>');
-
-        for (var j = i; j < data.length -1; j++) {
-          $('#display').append(`<td>${data[j]}<td>`);
-
-          if (data[j] === '\n') {
-            $('#display').append('</tr><tr>');
-          }
-
-          if (j === data.length - 2) {
-            $('#display').append('</tr>');
-          }
-        }
+    for (var i = 0; i < data.length; i++) {
+      $('#display').append('<tr>');
+      for (var j = 0; j < data[i].length; j++) {
+        $('#display').append(`<td>${data[i][j]}</td>`);
       }
-
+      $('#display').append('</tr>');
     }
-
   }
 });
