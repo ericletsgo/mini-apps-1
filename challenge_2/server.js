@@ -25,7 +25,22 @@ app.post('/', (req, res) => {
     }
   }
   traverse(data);
-  res.send(container.join());
+
+  console.log(container[0]);
+
+  var resultArray = [];
+  var bucket = [];
+  
+  for (var i = 0; i < container.length; i++) {
+
+    if (container[i] === '\n') {
+      resultArray.push(bucket);
+      bucket = [];
+    } else {
+      bucket.push(container[i]);
+    }
+  }
+  res.send(resultArray);
 });
 
 app.listen(8080)
