@@ -1,11 +1,11 @@
 $(document).ready(function() {
   var app = {
-    post: function(jsonData) {
+    post: function(data) {
       $.ajax({
         url: 'http://127.0.0.1:8080',
         type: 'POST',
         contentType: 'application/json',
-        data: jsonData,
+        data: data,
         success: function(data) {
           console.log(data);
         },
@@ -18,7 +18,6 @@ $(document).ready(function() {
 
   $('#form').submit(function (event) {
     app.post($('textarea').val());
-    console.log($('textarea').val())
     event.preventDefault();
   });
 });
