@@ -46,6 +46,13 @@ const PageThree = (props) => (
   </div>
 );
 
+const PageFour = (props) => (
+  <div>
+  <h1>Confirmation</h1>
+  <button onClick={props.submitForm}></button>
+  </div>
+)
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -55,12 +62,14 @@ class App extends React.Component {
   }
 
   handleInput(event) {
+    event.preventDefault();
     this.setState({
       [event.target.name]: event.target.value
     });
   }
 
   nextView(event) {
+    event.preventDefault();
     this.setState({page: this.state.page + 1});
   }
 
@@ -106,8 +115,13 @@ class App extends React.Component {
     }
     if (this.state.page === 3) {
       return(
-        <PageThree submitForm={this.submitForm.bind(this)} previousView={this.previousView.bind(this)} handleInput={this.handleInput.bind(this)} />
+        <PageThree nextView={this.nextView.bind(this)} previousView={this.previousView.bind(this)} handleInput={this.handleInput.bind(this)} />
       );
+    }
+    if (this.state.page === 4) {
+      return(
+        <PageFour submitForm={this.submitForm.bind(this)} />
+      )
     }
   }
 }
