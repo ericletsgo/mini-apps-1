@@ -21,7 +21,7 @@ const PageTwo = (props) => (
     <p>Line 2:<input type="input" name="line2" onChange={props.handleInput}/></p>
     <p>City:<input type="input" name="city" onChange={props.handleInput}/></p>
     <p>State:<input type="input" name="state" onChange={props.handleInput}/></p>
-    <p>Zip Code:<input type="number" name="zipCode" onChange={props.handleInput}/></p>
+    <p>Zip Code:<input type="input" name="zipCode" onChange={props.handleInput}/></p>
     <div>
       <input onClick={props.nextView} type="submit" value="Submit"/>
       <button onClick={props.previousView}>Previous Page</button>
@@ -35,11 +35,11 @@ const PageThree = (props) => (
   <h1>Credit Card Information</h1>
   <form>
     <p>Credit Card Number:<input type="input" name="creditCardNumber" onChange={props.handleInput}/></p>
-    <p>Exp. Date:<input type="number" maxLength="4" name="expDate" onChange={props.handleInput}/></p>
-    <p>CVV:<input type="number" maxLength="3" name="cvv" onChange={props.handleInput}/></p>
-    <p>Billing Zip Code: <input type="number" maxLength="5" name="billingZip" onChange={props.handleInput}/></p>
+    <p>Exp. Date:<input type="input" name="expDate" onChange={props.handleInput}/></p>
+    <p>CVV:<input type="input" name="cvv" onChange={props.handleInput}/></p>
+    <p>Billing Zip Code: <input type="input" name="billingZip" onChange={props.handleInput}/></p>
     <div>
-      <input onClick={props.nextView} type="submit" value="Submit"/>
+      <input onClick={props.submitForm} type="submit" value="Submit"/>
       <button onClick={props.previousView}>Previous Page</button>
     </div>
     </form>
@@ -54,63 +54,36 @@ class App extends React.Component {
     }
   }
 
-  // parseUserData(data) {
-  //   if (this.state.page === 1) {
-  //     return {
-  //       name: userInput.name,
-  //       email: userInput.email,
-  //       password: userInput.password
-  //     }
-  //   }
-  //   if (this.state.page === 2) {
-  //     return {
-  //       address: {
-  //         line1: userInput.line1,
-  //         line2: userInput.line2,
-  //         city: userInput.city,
-  //         state: userInput.state,
-  //         zip: userInput.zip
-  //       }
-  //     }
-  //   }
-  //   if (this.state.page === 3) {
-  //     return {
-  //       creditCardInfo: {
-  //         creditCardNumber: userInput.creditCardNumber,
-  //         expDate: userInput.expDate,
-  //         cvv: userInput.cvv,
-  //         billingZipCode: userInput.zip
-  //       }
-  //     }
-  //   }
-  // }
-
-  handleInput() {
-
+  handleInput(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
   }
 
   nextView(event) {
-    // event.preventDefault();
-    console.log(event.target.name);
     this.setState({page: this.state.page + 1});
-    // if (this.state.page !== 0) {
-    //   $.ajax({
-    //     url: 'http://127.0.0.1:8000/',
-    //     type: 'POST',
-    //     contentType: 'application/json',
-    //     // data: JSON.stringify(this.parseUserData()),
-    //     success: function(data) {
-    //       console.log('success!');
-    //     },
-    //     error: function() {
-    //       console.log('failed');
-    //     }
-    //   });
-    // }
   }
 
   previousView() {
     this.setState({page: this.state.page - 1});
+  }
+
+  submitForm() {
+    var submitData = this.state;
+    delete submitData['page'];
+
+    $.ajax({
+      url: 'http://127.0.0.1:8000/',
+      type: 'POST',
+      contentType: 'application/json',
+      data: JSON.stringify(submitData),
+      success: function(data) {
+        console.log('success!');
+      },
+      error: function() {
+        console.log('failed');
+      }
+    });
   }
 
   render() {
@@ -123,17 +96,17 @@ class App extends React.Component {
     }
     if (this.state.page === 1) {
       return(
-        <PageOne nextView={this.nextView.bind(this)} previousView={this.previousView.bind(this)} />
+        <PageOne nextView={this.nextView.bind(this)} previousView={this.previousView.bind(this)} handleInput={this.handleInput.bind(this)} />
       );
     }
     if (this.state.page === 2) {
       return(
-        <PageTwo nextView={this.nextView.bind(this)} previousView={this.previousView.bind(this)} />
+        <PageTwo nextView={this.nextView.bind(this)} previousView={this.previousView.bind(this)} handleInput={this.handleInput.bind(this)} />
       );
     }
     if (this.state.page === 3) {
       return(
-        <PageThree nextView={this.nextView.bind(this)} previousView={this.previousView.bind(this)} />
+        <PageThree submitForm={this.submitForm.bind(this)} previousView={this.previousView.bind(this)} handleInput={this.handleInput.bind(this)} />
       );
     }
   }
